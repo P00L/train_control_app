@@ -4,8 +4,15 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.triggertrap.seekarc.SeekArc;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -15,35 +22,91 @@ import java.net.URISyntaxException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SeekArc mSeekArc;
+    private SeekArc mSeekArc1;
     private WebSocketClient mWebSocketClient;
-    private SeekBar seekBar;
-    private TextView testo;
+    private TextView mSeekArcProgress;
+    private TextView mSeekArcProgress1;
+    private ImageView imageView;
+    private Boolean direction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        seekBar = (SeekBar) findViewById(R.id.mySeekBarSx);
-        testo = (TextView) findViewById(R.id.textViewSx);
-        connectWebSocket();
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressChangedValue = 0;
+        mSeekArc = (SeekArc) findViewById(R.id.seekArc);
+        mSeekArcProgress = (TextView) findViewById(R.id.seekArcProgress);
+        mSeekArc1 = (SeekArc) findViewById(R.id.seekArc1);
+        mSeekArcProgress1 = (TextView) findViewById(R.id.seekArcProgress1);
+        imageView = (ImageView) findViewById(R.id.imageView);
 
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChangedValue = progress;
-                testo.setText(String.valueOf(progressChangedValue));
+        direction = Boolean.TRUE;
+
+        // connect to socket
+        //TODO spostare allo start dell'applicazione
+        //connectWebSocket();
+
+        mSeekArc.setStartAngle(0);
+        mSeekArc.setSweepAngle(160);
+        mSeekArc.setArcRotation(280);
+
+        mSeekArc1.setStartAngle(0);
+        mSeekArc1.setSweepAngle(160);
+        mSeekArc1.setArcRotation(280);
+
+        mSeekArc.setOnSeekArcChangeListener(new SeekArc.OnSeekArcChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekArc seekArc) {
             }
 
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
+            @Override
+            public void onStartTrackingTouch(SeekArc seekArc) {
             }
 
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                testo.setText(String.valueOf("stop" + progressChangedValue));
-                sendMessage("#128");
-
+            @Override
+            public void onProgressChanged(SeekArc seekArc, int progress,
+                                          boolean fromUser) {
+                mSeekArcProgress.setText(String.valueOf(((255 - 0) * (progress - 0)) / (100 - 0) + 0));
             }
         });
+
+        mSeekArc1.setOnSeekArcChangeListener(new SeekArc.OnSeekArcChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekArc seekArc) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekArc seekArc) {
+            }
+
+            @Override
+            public void onProgressChanged(SeekArc seekArc, int progress,
+                                          boolean fromUser) {
+                mSeekArcProgress1.setText(String.valueOf(((255 - 0) * (progress - 0)) / (100 - 0) + 0));
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if (direction) {
+                    direction = Boolean.FALSE;
+                    imageView.animate().rotation(180).start();
+                    sendMessage("SX");
+                }
+                else{
+                    direction = Boolean.TRUE;
+                    imageView.animate().rotation(0).start();
+                    sendMessage("DX");
+                }
+            }
+        });
+
+
     }
 
     private void connectWebSocket() {
@@ -82,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(String message) {
-        mWebSocketClient.send(message);
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        //mWebSocketClient.send(message);
     }
 }

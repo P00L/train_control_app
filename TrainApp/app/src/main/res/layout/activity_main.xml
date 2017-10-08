@@ -7,72 +7,75 @@
     tools:context="com.example.pool.trainapp.MainActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
-            <!-- This library requires pair of the VerticalSeekBar and VerticalSeekBarWrapper classes -->
-            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-                android:layout_width="wrap_content"
-                android:layout_height="400dp">
+            android:orientation="vertical">
 
-                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-                    android:id="@+id/mySeekBarSx"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:splitTrack="false"
-                    app:seekBarRotation="CW270" /> <!-- Rotation: CW90 or CW270 -->
-            </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+            <com.triggertrap.seekarc.SeekArc
+                android:id="@+id/seekArc"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:padding="30dp"
+                tools:rotation="180"
+                tools:startAngle="30"
+                tools:sweepAngle="300"
+                tools:touchInside="true" />
 
-            <TextView
-                android:id="@+id/textViewSx"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                tools:layout_editor_absoluteX="221dp"
-                tools:layout_editor_absoluteY="94dp" />
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/seekArcProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="0"
+                    android:textSize="40sp" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
-            <!-- This library requires pair of the VerticalSeekBar and VerticalSeekBarWrapper classes -->
-            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-                android:layout_width="wrap_content"
-                android:layout_height="400dp">
+            android:orientation="vertical">
 
-                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-                    android:id="@+id/mySeekBarDx"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:splitTrack="false"
-                    app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
-            </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+            <com.triggertrap.seekarc.SeekArc
+                android:id="@+id/seekArc1"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:padding="30dp"
+                tools:rotation="180"
+                tools:startAngle="30"
+                tools:sweepAngle="300"
+                tools:touchInside="true" />
 
             <TextView
-                android:id="@+id/textViewDx"
+                android:id="@+id/seekArcProgress1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                tools:layout_editor_absoluteX="221dp"
-                tools:layout_editor_absoluteY="94dp" />
+                android:layout_gravity="center"
+                android:padding="-30dp"
+                android:text="0"
+                android:textSize="40sp" />
         </LinearLayout>
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>
