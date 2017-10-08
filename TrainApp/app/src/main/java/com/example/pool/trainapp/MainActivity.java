@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.triggertrap.seekarc.SeekArc;
+import com.example.pool.trainapp.WebSocket;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
@@ -27,11 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
     private SeekArc mSeekArc;
     private SeekArc mSeekArc1;
-    private WebSocketClient mWebSocketClient;
     private TextView mSeekArcProgress;
     private TextView mSeekArcProgress1;
     private ImageView imageView;
     private Boolean direction;
+    private WebSocket webSocket;
+    private WebSocketClient mWebSocketClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mSeekArc1.setArcColor(Color.parseColor("#c2c2c2"));
         // connect to socket
         //TODO spostare allo start dell'applicazione
-        //connectWebSocket();
+        connectWebSocket();
 
         mSeekArc.setStartAngle(0);
         mSeekArc.setSweepAngle(160);
@@ -189,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendMessage(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-        //mWebSocketClient.send(message);
+        mWebSocketClient.send(message);
     }
 }
