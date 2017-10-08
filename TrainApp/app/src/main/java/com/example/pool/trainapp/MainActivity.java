@@ -1,5 +1,6 @@
 package com.example.pool.trainapp;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView);
 
         direction = Boolean.TRUE;
-
+        mSeekArc1.setProgressColor(Color.parseColor("#00ffff"));
+        mSeekArc1.setArcColor(Color.parseColor("#c2c2c2"));
         // connect to socket
         //TODO spostare allo start dell'applicazione
         //connectWebSocket();
@@ -99,11 +101,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 if (direction) {
                     direction = Boolean.FALSE;
+                    mSeekArc1.setEnabled(Boolean.FALSE);
+                    mSeekArc1.setArcColor(Color.parseColor("#ff0000"));
+                    mSeekArc1.setProgress(0);
+                    mSeekArcProgress1.setEnabled(Boolean.FALSE);
                     imageView.animate().rotation(180).start();
                     sendMessage("SX");
                 }
                 else{
                     direction = Boolean.TRUE;
+                    mSeekArc1.setEnabled(Boolean.TRUE);
+                    mSeekArc1.setProgressColor(Color.parseColor("#00ffff"));
+                    mSeekArc1.setArcColor(Color.parseColor("#c2c2c2"));
+                    mSeekArcProgress1.setEnabled(Boolean.TRUE);
                     imageView.animate().rotation(0).start();
                     sendMessage("DX");
                 }
